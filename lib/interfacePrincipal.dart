@@ -6,9 +6,35 @@ class Interface extends StatefulWidget {
 }
 
 class _InterfaceState extends State<Interface> {
-  //
+  //Controllers para pegar valor digitados
   TextEditingController _controllerAlcool = TextEditingController();
   TextEditingController _controllerGasolina = TextEditingController();
+  String _resultado = "";
+
+  //Metodo para calcular
+  void _calcular() {
+    //Recuperar o que o usuario editou
+    //Converter em double
+    double precoAlcool = double.tryParse(_controllerAlcool.text);
+    double precoGasolina = double.tryParse(_controllerGasolina.text);
+    
+    if (precoAlcool == null || precoGasolina == null) {
+      setState(() {
+        _resultado = "Numero invalido, digite numeros maiores que 0";
+      });
+    } else {
+      setState(() {
+        /*
+        *Se o preco do alcool divido pelo preco da gasolina
+        *for >= a 0.7 melhor abastecer com gasolina
+        *senao melhor utilizar alcool.
+        */
+        
+        _resultado = "Numero valido, caulculo aceite.";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,18 +90,15 @@ class _InterfaceState extends State<Interface> {
                   padding: EdgeInsets.all(10),
                   child: Text(
                     "Calcular",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {}),
+                  onPressed: _calcular),
             ),
             //NovoTexto
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                "Resultado",
+                _resultado,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
