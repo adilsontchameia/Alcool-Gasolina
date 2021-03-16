@@ -21,6 +21,7 @@ class _InterfaceState extends State<Interface> {
     if (precoAlcool == null || precoGasolina == null) {
       setState(() {
         _resultado = "Numero invalido, digite numeros maiores que 0 e (.)";
+        _limparCampos();
       });
     } else {
       setState(() {
@@ -29,14 +30,22 @@ class _InterfaceState extends State<Interface> {
         *for >= a 0.7 melhor abastecer com gasolina
         *senao melhor utilizar alcool.
         */
-        if (precoAlcool / precoGasolina >= 0.1) {
+
+        if (precoAlcool / precoGasolina >= 0.7) {
           setState(() {
             _resultado = "Melhor abastecer com gasolina";
+            _limparCampos();
           });
         } else {}
         _resultado = "Melhor abastecer com alcool.";
+        _limparCampos();
       });
     }
+  }
+
+  void _limparCampos() {
+    this._controllerAlcool.text = "";
+    this._controllerGasolina.text = "";
   }
 
   @override
@@ -89,14 +98,15 @@ class _InterfaceState extends State<Interface> {
             Padding(
               padding: EdgeInsets.only(top: 10),
               child: RaisedButton(
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "Calcular",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: _calcular),
+                color: Colors.blue,
+                textColor: Colors.white,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "Calcular",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                onPressed: _calcular,
+              ),
             ),
             //NovoTexto
             Padding(
