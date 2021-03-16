@@ -17,10 +17,10 @@ class _InterfaceState extends State<Interface> {
     //Converter em double
     double precoAlcool = double.tryParse(_controllerAlcool.text);
     double precoGasolina = double.tryParse(_controllerGasolina.text);
-    
+
     if (precoAlcool == null || precoGasolina == null) {
       setState(() {
-        _resultado = "Numero invalido, digite numeros maiores que 0";
+        _resultado = "Numero invalido, digite numeros maiores que 0 e (.)";
       });
     } else {
       setState(() {
@@ -29,8 +29,12 @@ class _InterfaceState extends State<Interface> {
         *for >= a 0.7 melhor abastecer com gasolina
         *senao melhor utilizar alcool.
         */
-        
-        _resultado = "Numero valido, caulculo aceite.";
+        if (precoAlcool / precoGasolina >= 0.1) {
+          setState(() {
+            _resultado = "Melhor abastecer com gasolina";
+          });
+        } else {}
+        _resultado = "Melhor abastecer com alcool.";
       });
     }
   }
